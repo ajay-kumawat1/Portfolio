@@ -1,6 +1,4 @@
-import { Github, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import { downloadResume } from '@/lib/download';
 
 export function Hero() {
@@ -41,10 +39,9 @@ export function Hero() {
             </Button>
           </div>
           
-          <div className="flex justify-center gap-6 pt-6 sm:pt-8 animate-fade-in animation-delay-500">
+          {/* <div className="flex justify-center gap-6 pt-6 sm:pt-8 animate-fade-in animation-delay-500">
             {['github', 'linkedin'].map((platform, index) => {
               const Icon = { github: Github, linkedin: Linkedin }[platform];
-              if (!Icon) return null;
               return (
                 <a
                   key={platform}
@@ -61,7 +58,7 @@ export function Hero() {
                 </a>
               );
             })}
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

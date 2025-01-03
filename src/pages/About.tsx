@@ -16,7 +16,7 @@ export function About() {
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-500" />
               <div className="relative aspect-square w-96 h-96 rounded-2xl overflow-hidden backdrop-blur-sm">
                 <img
-                  src="../../public/p-1.jpg"
+                  src="/p-1.jpg"
                   alt="Profile"
                   className="w-full h-full object-cover transform group-hover:scale-105 transition duration-500"
                 />
