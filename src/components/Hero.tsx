@@ -1,10 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { downloadResume } from '@/lib/download';
+import { SocialLinks } from './social/SocialLinks';
 
 export function Hero() {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center pt-16 px-4 relative overflow-hidden">
-      {/* Gradient Orbs - Adjusted for mobile */}
+      {/* Gradient Orbs */}
       <div className="absolute top-1/4 -left-1/2 w-72 sm:w-96 h-72 sm:h-96 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-blob" />
       <div className="absolute -bottom-1/4 -right-1/2 w-72 sm:w-96 h-72 sm:h-96 bg-gradient-to-r from-pink-500/20 to-orange-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
       
@@ -35,30 +36,11 @@ export function Hero() {
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 w-full sm:w-auto"
               onClick={downloadResume}
             >
-              Hire Me
+              Download Resume
             </Button>
           </div>
           
-          {/* <div className="flex justify-center gap-6 pt-6 sm:pt-8 animate-fade-in animation-delay-500">
-            {['github', 'linkedin'].map((platform, index) => {
-              const Icon = { github: Github, linkedin: Linkedin }[platform];
-              return (
-                <a
-                  key={platform}
-                  href={`https://${platform}.com/ajay-kumawat1`}
-                  className={cn(
-                    "text-muted-foreground hover:text-foreground transition-all duration-300 hover:scale-110",
-                    "animate-fade-in",
-                    `animation-delay-${700 + index * 100}`
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Icon className="w-6 h-6 sm:w-7 sm:h-7" />
-                </a>
-              );
-            })}
-          </div> */}
+          <SocialLinks className="animate-fade-in animation-delay-500" />
         </div>
       </div>
     </section>
