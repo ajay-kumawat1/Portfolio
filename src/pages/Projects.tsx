@@ -3,7 +3,7 @@ import { projects } from '@/data/projects';
 
 export function Projects() {
   return (
-    <section className="min-h-screen py-20 px-4 sm:px-6 relative overflow-hidden">
+    <section className="min-h-screen py-20 px-4 sm:px-6 relative overflow-hidden pt-52">
       {/* Gradient Orbs */}
       <div className="absolute top-1/4 -left-1/2 w-96 h-96 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-blob" />
       <div className="absolute -bottom-1/4 -right-1/2 w-96 h-96 bg-gradient-to-r from-pink-500/20 to-orange-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
