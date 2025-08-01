@@ -1,15 +1,15 @@
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Pacifico } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import { Analytics } from "@vercel/analytics/react";
 
 const pacifico = Pacifico({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-pacifico',
-})
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-pacifico",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,22 +23,24 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Ajay Kumawat - Full Stack Developer",
-  description: "Professional portfolio of Ajay Kumawat, Full Stack Web Developer specializing in React, Node.js, and modern web technologies",
+  description:
+    "Professional portfolio of Ajay Kumawat, Full Stack Web Developer specializing in React, Node.js, and modern web technologies",
 };
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} antialiased`}
+      >
         <Header />
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
+        <Analytics />
       </body>
     </html>
-  )
+  );
 }
