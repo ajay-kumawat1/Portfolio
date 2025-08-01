@@ -30,11 +30,12 @@ export default function AboutSection() {
     { number: "99.9%", label: "System Uptime" },
   ];
 
-  const tabs = [
+  const tabs: { id: TabKey; label: string; icon: string }[] = [
     { id: "story", label: "My Journey", icon: "ri-server-line" },
     { id: "expertise", label: "Backend Expertise", icon: "ri-database-line" },
     { id: "approach", label: "My Approach", icon: "ri-code-s-slash-line" },
   ];
+
   const tabContent: Record<TabKey, { title: string; content: string }> = {
     story: {
       title: "Backend Development Journey",
@@ -141,7 +142,7 @@ export default function AboutSection() {
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id as TabKey)}
+                  onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center px-4 py-2 rounded-full font-medium transition-all duration-300 cursor-pointer ${
                     activeTab === tab.id
                       ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
