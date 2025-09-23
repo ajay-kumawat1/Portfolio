@@ -58,7 +58,7 @@ const Hero = () => {
               View Resume
             </motion.a>
 
-            <motion.a
+            {/* <motion.a
               href="#contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -66,7 +66,7 @@ const Hero = () => {
             >
               <Mail className="mr-2 h-4 w-4" />
               Contact Me
-            </motion.a>
+            </motion.a> */}
           </motion.div>
 
           {/* Social Links */}
