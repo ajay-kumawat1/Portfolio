@@ -1,7 +1,20 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Server, Database, Code, GitBranch } from "lucide-react";
+import {
+  Server,
+  Database,
+  Code,
+  GitBranch,
+  FileCode,
+  Settings,
+  Globe,
+  Terminal,
+  Box,
+  Cloud,
+  Monitor,
+  HardDrive,
+} from "lucide-react";
 
 const Skills = () => {
   const ref = useRef(null);
@@ -12,44 +25,44 @@ const Skills = () => {
       title: "Backend Technologies",
       icon: Server,
       skills: [
-        { name: "Node.js", level: 90 },
-        { name: "Express.js", level: 85 },
-        { name: "NestJS", level: 75 },
-        { name: "TypeScript", level: 80 },
-        { name: "JavaScript", level: 90 },
-        { name: "Python", level: 70 },
+        { name: "Node.js", icon: FileCode },
+        { name: "Express.js", icon: Server },
+        { name: "NestJS", icon: Settings },
+        { name: "TypeScript", icon: Code },
+        { name: "JavaScript", icon: Code },
+        { name: "Python", icon: Terminal },
       ],
     },
     {
       title: "Databases & Storage",
       icon: Database,
       skills: [
-        { name: "MongoDB", level: 85 },
-        { name: "PostgreSQL", level: 80 },
-        { name: "MySQL", level: 75 },
-        { name: "Redis", level: 70 },
-        { name: "Mongoose", level: 85 },
+        { name: "MongoDB", icon: Database },
+        { name: "PostgreSQL", icon: Database },
+        { name: "MySQL", icon: Database },
+        { name: "Redis", icon: HardDrive },
+        { name: "Mongoose", icon: Settings },
       ],
     },
     {
       title: "Frontend Skills",
       icon: Code,
       skills: [
-        { name: "React", level: 80 },
-        { name: "Angular", level: 75 },
-        { name: "HTML/CSS", level: 85 },
-        { name: "TailwindCSS", level: 80 },
+        { name: "React", icon: Code },
+        { name: "Angular", icon: Globe },
+        { name: "HTML/CSS", icon: Monitor },
+        { name: "TailwindCSS", icon: Settings },
       ],
     },
     {
       title: "DevOps & Tools",
       icon: GitBranch,
       skills: [
-        { name: "Docker", level: 75 },
-        { name: "Git", level: 90 },
-        { name: "AWS", level: 70 },
-        { name: "Linux", level: 75 },
-        { name: "Nginx", level: 70 },
+        { name: "Docker", icon: Box },
+        { name: "Git", icon: GitBranch },
+        { name: "AWS", icon: Cloud },
+        { name: "Linux", icon: Terminal },
+        { name: "Nginx", icon: Server },
       ],
     },
   ];
@@ -100,37 +113,25 @@ const Skills = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="bg-card p-6 rounded-lg border border-border hover:border-primary/20 transition-colors"
               >
-                <div className="flex items-center mb-4">
+                <div className="flex items-center mb-6">
                   <category.icon className="h-6 w-6 text-primary mr-3" />
                   <h3 className="text-xl font-semibold text-card-foreground">
                     {category.title}
                   </h3>
                 </div>
 
-                <div className="space-y-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                   {category.skills.map((skill) => (
-                    <div key={skill.name} className="space-y-2">
-                      <div className="flex justify-between">
-                        <span className="text-sm font-medium text-muted-foreground">
-                          {skill.name}
-                        </span>
-                        <span className="text-sm text-muted-foreground">
-                          {skill.level}%
-                        </span>
-                      </div>
-                      <div className="h-2 bg-muted rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={
-                            isInView
-                              ? { width: `${skill.level}%` }
-                              : { width: 0 }
-                          }
-                          transition={{ duration: 1, delay: index * 0.1 + 0.5 }}
-                          className="h-full bg-primary rounded-full"
-                        />
-                      </div>
-                    </div>
+                    <motion.div
+                      key={skill.name}
+                      whileHover={{ scale: 1.05 }}
+                      className="flex flex-col items-center p-3 bg-muted/50 rounded-lg hover:bg-primary/10 transition-colors"
+                    >
+                      <skill.icon className="h-8 w-8 text-primary mb-2" />
+                      <span className="text-sm font-medium text-center text-muted-foreground">
+                        {skill.name}
+                      </span>
+                    </motion.div>
                   ))}
                 </div>
               </motion.div>
