@@ -31,7 +31,7 @@ const Navbar = ({ darkMode, toggleDarkMode }: NavbarProps) => {
           {/* Logo */}
           <motion.div whileHover={{ scale: 1.05 }} className="flex-shrink-0">
             <a href="#home" className="text-xl font-bold text-primary">
-              Portfolio
+              AJAY
             </a>
           </motion.div>
 
