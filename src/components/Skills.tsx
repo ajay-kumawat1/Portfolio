@@ -30,7 +30,6 @@ const Skills = () => {
         { name: "NestJS", icon: Settings },
         { name: "TypeScript", icon: Code },
         { name: "JavaScript", icon: Code },
-        { name: "Python", icon: Terminal },
       ],
     },
     {
