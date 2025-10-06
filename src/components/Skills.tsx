@@ -220,25 +220,20 @@ const Skills = () => {
                       transition={{ delay: skillIndex * 0.1 }}
                       className="group/skill"
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div
-                            className={`p-2 rounded-lg ${category.bgColor} group-hover/skill:scale-110 transition-transform`}
-                          >
-                            <skill.icon className="h-5 w-5 text-current" />
-                          </div>
-                          <div>
-                            <span className="font-semibold text-foreground">
-                              {skill.name}
-                            </span>
-                            <p className="text-xs text-muted-foreground">
-                              {skill.experience}
-                            </p>
-                          </div>
+                      <div className="flex items-center space-x-3">
+                        <div
+                          className={`p-2 rounded-lg ${category.bgColor} group-hover/skill:scale-110 transition-transform`}
+                        >
+                          <skill.icon className="h-5 w-5 text-current" />
                         </div>
-                        <span className="text-sm font-bold text-primary">
-                          {skill.level}%
-                        </span>
+                        <div>
+                          <span className="font-semibold text-foreground">
+                            {skill.name}
+                          </span>
+                          <p className="text-xs text-muted-foreground">
+                            {skill.experience}
+                          </p>
+                        </div>
                       </div>
                     </motion.div>
                   ))}
