@@ -212,7 +212,7 @@ const Skills = () => {
                 </div>
 
                 {/* Skills Grid */}
-                <div className="space-y-6">
+                <div className="space-y-4">
                   {category.skills.map((skill, skillIndex) => (
                     <motion.div
                       key={skill.name}
@@ -220,7 +220,7 @@ const Skills = () => {
                       transition={{ delay: skillIndex * 0.1 }}
                       className="group/skill"
                     >
-                      <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
                           <div
                             className={`p-2 rounded-lg ${category.bgColor} group-hover/skill:scale-110 transition-transform`}
@@ -239,28 +239,6 @@ const Skills = () => {
                         <span className="text-sm font-bold text-primary">
                           {skill.level}%
                         </span>
-                      </div>
-
-                      {/* Progress Bar */}
-                      <div className="relative h-2 bg-muted/30 rounded-full overflow-hidden">
-                        <motion.div
-                          className={`absolute left-0 top-0 h-full bg-gradient-to-r ${category.color} rounded-full`}
-                          initial={{ width: 0 }}
-                          animate={
-                            isInView
-                              ? { width: `${skill.level}%` }
-                              : { width: 0 }
-                          }
-                          transition={{
-                            duration: 1.5,
-                            delay: index * 0.2 + skillIndex * 0.1,
-                            ease: "easeOut",
-                          }}
-                        />
-                        <div
-                          className={`absolute left-0 top-0 h-full bg-gradient-to-r ${category.color} rounded-full opacity-30 animate-pulse`}
-                          style={{ width: `${skill.level}%` }}
-                        />
                       </div>
                     </motion.div>
                   ))}
