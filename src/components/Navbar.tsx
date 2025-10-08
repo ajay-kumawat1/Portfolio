@@ -84,35 +84,50 @@ const Navbar = ({ darkMode, toggleDarkMode }: NavbarProps) => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Logo with Animation */}
+          {/* Professional Logo */}
           <motion.div
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.02 }}
             className="flex-shrink-0 relative group"
           >
             <a href="#home" className="flex items-center space-x-3">
-              {/* Animated Background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary via-purple-500 to-blue-500 rounded-xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity" />
+              {/* Modern Logo Design */}
+              <div className="flex items-center space-x-3">
+                {/* Monogram/Avatar */}
+                <div className="relative">
+                  <motion.div
+                    whileHover={{ rotate: 5 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-12 h-12 bg-gradient-to-br from-primary via-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow"
+                  >
+                    <span className="text-white font-bold text-lg tracking-tight">
+                      AK
+                    </span>
+                  </motion.div>
+                  {/* Status indicator */}
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background flex items-center justify-center">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                  </div>
+                </div>
 
-              {/* Logo Container */}
-              <div className="relative flex items-center space-x-3 px-4 py-2 bg-gradient-to-r from-primary/10 to-purple-500/10 rounded-xl border border-primary/20 group-hover:border-primary/40 transition-all">
-                <motion.div
-                  animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="p-2 bg-gradient-to-br from-primary to-purple-500 rounded-lg"
-                >
-                  <Code2 className="w-5 h-5 text-white" />
-                </motion.div>
-                <div>
-                  <span className="text-xl font-bold bg-gradient-to-r from-primary via-purple-500 to-blue-500 bg-clip-text text-transparent">
-                    AJAY KUMAWAT
-                  </span>
-                  <p className="text-xs text-muted-foreground">
-                    Backend Developer
-                  </p>
+                {/* Text Content */}
+                <div className="flex flex-col">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                      Ajay Kumawat
+                    </span>
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.5 }}
+                      className="w-1.5 h-1.5 bg-primary rounded-full"
+                    />
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <Code2 className="w-3 h-3 text-muted-foreground" />
+                    <span className="text-xs text-muted-foreground font-medium">
+                      Backend Engineer
+                    </span>
+                  </div>
                 </div>
               </div>
             </a>
