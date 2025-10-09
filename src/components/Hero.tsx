@@ -57,38 +57,127 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
-      {/* Advanced Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20" />
+      {/* Ultra Advanced Background System */}
+      <div className="absolute inset-0">
+        {/* Multi-layer gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-black" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/20 via-transparent to-purple-900/20" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-cyan-900/10 via-transparent to-indigo-900/15" />
 
-      {/* Animated Background Elements */}
+        {/* Animated mesh gradient overlay */}
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-blue-500/20 to-purple-500/20 animate-pulse" />
+          <div
+            className="absolute inset-0 bg-gradient-to-l from-cyan-500/10 via-transparent to-emerald-500/10"
+            style={{ animation: "pulse 4s infinite" }}
+          />
+        </div>
+      </div>
+
+      {/* Sophisticated Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Large gradient orbs */}
-        <div className="absolute top-1/4 -left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div
-          className="absolute bottom-1/4 -right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "1s" }}
-        />
-        <div
-          className="absolute top-3/4 left-1/2 w-64 h-64 bg-blue-500/5 rounded-full blur-2xl animate-pulse"
-          style={{ animationDelay: "2s" }}
+        {/* Large dynamic gradient orbs */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.6, 0.3],
+            x: [0, 50, 0],
+            y: [0, -30, 0],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-primary/30 via-blue-500/20 to-transparent rounded-full blur-3xl"
         />
 
-        {/* Floating geometric shapes */}
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.2, 0.5, 0.2],
+            x: [0, -40, 0],
+            y: [0, 40, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+          className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-purple-500/25 via-pink-500/15 to-transparent rounded-full blur-3xl"
+        />
+
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.4, 0.7, 0.4],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-r from-cyan-500/20 via-blue-500/15 to-indigo-500/20 rounded-full blur-2xl"
+        />
+
+        {/* Premium floating geometric shapes */}
         <motion.div
           animate={{ rotate: 360, scale: [1, 1.1, 1] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-20 right-20 w-32 h-32 border border-primary/20 rounded-2xl"
+          className="absolute top-20 right-20 w-32 h-32 border border-primary/30 rounded-2xl backdrop-blur-sm bg-primary/5"
         />
+
         <motion.div
           animate={{ rotate: -360, scale: [1.1, 1, 1.1] }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-20 left-20 w-24 h-24 border border-purple-500/20 rounded-full"
+          className="absolute bottom-20 left-20 w-24 h-24 border border-purple-500/30 rounded-full backdrop-blur-sm bg-gradient-to-br from-purple-500/10 to-pink-500/5"
         />
+
         <motion.div
-          animate={{ y: [0, -30, 0], rotate: [0, 10, -10, 0] }}
+          animate={{
+            y: [0, -30, 0],
+            rotate: [0, 10, -10, 0],
+            scale: [1, 1.05, 1],
+          }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/3 right-1/3 w-16 h-16 bg-gradient-to-br from-primary/20 to-blue-500/20 rounded-lg backdrop-blur-sm"
+          className="absolute top-1/3 right-1/3 w-16 h-16 bg-gradient-to-br from-primary/30 to-blue-500/20 rounded-lg backdrop-blur-sm border border-primary/20"
         />
+
+        {/* Floating particles/dots */}
+        {[...Array(12)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              y: [0, -100, 0],
+              opacity: [0, 1, 0],
+              scale: [0, 1, 0],
+            }}
+            transition={{
+              duration: 6 + Math.random() * 4,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+              ease: "easeInOut",
+            }}
+            className="absolute w-2 h-2 bg-gradient-to-r from-primary to-blue-500 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${60 + Math.random() * 30}%`,
+            }}
+          />
+        ))}
+
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: `
+              linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+            `,
+              backgroundSize: "50px 50px",
+            }}
+          />
+        </div>
       </div>
 
       <div className="relative max-w-7xl mx-auto">
@@ -98,25 +187,37 @@ const Hero = () => {
           animate="visible"
           className="text-center"
         >
-          {/* Status Badge */}
+          {/* Enhanced Status Badge */}
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center space-x-2 bg-green-500/10 text-green-500 px-4 py-2 rounded-full text-sm font-medium mb-8 border border-green-500/20"
+            className="relative inline-flex items-center space-x-2 bg-gradient-to-r from-emerald-500/10 via-green-500/10 to-teal-500/10 text-emerald-400 px-6 py-3 rounded-full text-sm font-medium mb-8 border border-emerald-500/30 backdrop-blur-md shadow-lg"
           >
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span>Available for work</span>
+            <div className="relative">
+              <div className="w-3 h-3 bg-gradient-to-r from-emerald-400 to-green-400 rounded-full animate-pulse" />
+              <div className="absolute inset-0 w-3 h-3 bg-gradient-to-r from-emerald-400 to-green-400 rounded-full animate-ping" />
+            </div>
+            <span className="font-semibold">Available for work</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-green-500/5 rounded-full blur-xl" />
           </motion.div>
 
-          {/* Main Title with Gradient */}
+          {/* Enhanced Main Title with Advanced Gradient */}
           <motion.h1
             variants={itemVariants}
-            className="text-5xl sm:text-7xl lg:text-8xl font-bold mb-6"
+            className="text-5xl sm:text-7xl lg:text-8xl font-bold mb-6 relative"
           >
-            <span className="bg-gradient-to-r from-primary via-blue-500 to-purple-500 bg-clip-text text-transparent">
-              Ajay
+            <span className="relative inline-block">
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-pulse">
+                Ajay
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 via-blue-500/20 to-purple-600/20 blur-2xl -z-10" />
             </span>
             <br />
-            <span className="text-foreground">Kumawat</span>
+            <span className="relative inline-block">
+              <span className="bg-gradient-to-r from-slate-100 via-white to-slate-200 bg-clip-text text-transparent">
+                Kumawat
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-100/10 via-white/10 to-slate-200/10 blur-xl -z-10" />
+            </span>
           </motion.h1>
 
           {/* Animated Subtitle */}
@@ -144,29 +245,29 @@ const Hero = () => {
             </motion.span>
           </motion.div>
 
-          {/* Enhanced Description */}
+          {/* Enhanced Description with Theme Colors */}
           <motion.p
             variants={itemVariants}
-            className="text-lg sm:text-xl lg:text-2xl max-w-4xl mx-auto text-muted-foreground mb-12 leading-relaxed"
+            className="text-lg sm:text-xl lg:text-2xl max-w-4xl mx-auto text-slate-300 mb-12 leading-relaxed"
           >
             Crafting{" "}
-            <span className="text-primary font-semibold">
+            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-bold">
               scalable backend systems
             </span>{" "}
             and
-            <span className="text-green-500 font-semibold">
+            <span className="bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent font-bold">
               {" "}
               robust APIs
             </span>{" "}
             with
-            <span className="text-purple-500 font-semibold">
+            <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent font-bold">
               {" "}
               1.5+ years
             </span>{" "}
             of hands-on experience in modern web technologies.
           </motion.p>
 
-          {/* Tech Stack Showcase */}
+          {/* Enhanced Tech Stack Showcase */}
           <motion.div
             variants={itemVariants}
             className="flex flex-wrap justify-center items-center gap-6 mb-12"
@@ -176,46 +277,54 @@ const Hero = () => {
                 key={tech.name}
                 variants={itemVariants}
                 whileHover={{ scale: 1.1, y: -5 }}
-                className="flex items-center space-x-2 px-4 py-2 bg-background/50 backdrop-blur-sm rounded-xl border border-border/50 hover:border-primary/30 transition-all"
+                className="relative group"
               >
-                <tech.icon className={`w-5 h-5 ${tech.color}`} />
-                <span className="text-sm font-medium text-foreground">
-                  {tech.name}
-                </span>
+                <div className="flex items-center space-x-3 px-6 py-3 bg-slate-800/50 backdrop-blur-md rounded-2xl border border-slate-700/50 hover:border-cyan-400/50 transition-all duration-300 shadow-lg">
+                  <tech.icon
+                    className={`w-6 h-6 ${tech.color} group-hover:scale-110 transition-transform`}
+                  />
+                  <span className="text-sm font-semibold text-slate-200 group-hover:text-white transition-colors">
+                    {tech.name}
+                  </span>
+                </div>
+                {/* Glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-purple-500/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
               </motion.div>
             ))}
           </motion.div>
 
-          {/* Enhanced CTA Buttons */}
+          {/* Premium CTA Buttons */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
           >
             <motion.a
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.05, y: -2 }}
+              whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95 }}
-              className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary to-blue-500 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all"
+              className="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 text-white font-bold rounded-2xl shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300"
             >
-              <FileDown className="mr-2 h-5 w-5 group-hover:animate-bounce" />
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity -z-10" />
+              <FileDown className="mr-3 h-5 w-5 group-hover:animate-bounce" />
               <span>Download Resume</span>
-              <ExternalLink className="ml-2 h-4 w-4 opacity-70" />
+              <ExternalLink className="ml-3 h-4 w-4 opacity-80 group-hover:opacity-100" />
             </motion.a>
 
             <motion.a
               href="#projects"
-              whileHover={{ scale: 1.05, y: -2 }}
+              whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95 }}
-              className="group inline-flex items-center px-8 py-4 bg-background/50 backdrop-blur-sm border-2 border-border hover:border-primary text-foreground hover:text-primary font-semibold rounded-2xl transition-all"
+              className="group relative inline-flex items-center px-8 py-4 bg-slate-800/50 backdrop-blur-md border-2 border-slate-600/50 hover:border-cyan-400/60 text-slate-200 hover:text-white font-bold rounded-2xl transition-all duration-300 shadow-lg"
             >
-              <Play className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-800/20 to-slate-700/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
+              <Play className="mr-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               <span>View My Work</span>
             </motion.a>
           </motion.div>
 
-          {/* Enhanced Social Links */}
+          {/* Premium Social Links */}
           <motion.div
             variants={itemVariants}
             className="flex justify-center items-center space-x-6 mb-12"
@@ -225,19 +334,22 @@ const Hero = () => {
                 href: "https://github.com/ajay-kumawat1",
                 icon: Github,
                 label: "GitHub",
-                color: "hover:text-gray-900 hover:bg-gray-100",
+                gradient: "from-gray-600 to-gray-800",
+                hoverGlow: "hover:shadow-gray-500/25",
               },
               {
                 href: "https://linkedin.com/in/ajay-kumawat",
                 icon: Linkedin,
                 label: "LinkedIn",
-                color: "hover:text-blue-600 hover:bg-blue-50",
+                gradient: "from-blue-500 to-blue-700",
+                hoverGlow: "hover:shadow-blue-500/25",
               },
               {
                 href: "mailto:ajay.kumawat@example.com",
                 icon: Mail,
                 label: "Email",
-                color: "hover:text-red-500 hover:bg-red-50",
+                gradient: "from-red-500 to-red-700",
+                hoverGlow: "hover:shadow-red-500/25",
               },
             ].map((social) => (
               <motion.a
@@ -245,30 +357,37 @@ const Hero = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.2, y: -5 }}
+                whileHover={{ scale: 1.15, y: -6 }}
                 whileTap={{ scale: 0.9 }}
-                className={`p-4 bg-background/50 backdrop-blur-sm border border-border rounded-2xl transition-all ${social.color}`}
+                className={`group relative p-4 bg-slate-800/40 backdrop-blur-md border border-slate-600/30 hover:border-slate-400/50 rounded-2xl shadow-xl hover:shadow-2xl ${social.hoverGlow} transition-all duration-300`}
                 title={social.label}
               >
-                <social.icon size={24} />
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${social.gradient} rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity`}
+                />
+                <social.icon
+                  size={24}
+                  className="text-slate-300 group-hover:text-white transition-colors relative z-10"
+                />
               </motion.a>
             ))}
           </motion.div>
 
-          {/* Scroll Indicator */}
+          {/* Premium Scroll Indicator */}
           <motion.div
             variants={itemVariants}
             className="flex flex-col items-center"
           >
-            <p className="text-sm text-muted-foreground mb-4">
+            <p className="text-sm text-slate-400 mb-4 font-medium">
               Scroll to explore
             </p>
             <motion.div
               variants={floatingVariants}
               animate="animate"
-              className="p-3 bg-primary/10 rounded-full border border-primary/20"
+              className="group relative p-4 bg-slate-800/40 backdrop-blur-md rounded-full border border-slate-600/30 hover:border-cyan-400/50 shadow-xl hover:shadow-cyan-500/20 transition-all duration-300 cursor-pointer"
             >
-              <ArrowDown className="w-5 h-5 text-primary" />
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+              <ArrowDown className="w-5 h-5 text-slate-300 group-hover:text-cyan-400 transition-colors relative z-10" />
             </motion.div>
           </motion.div>
         </motion.div>
