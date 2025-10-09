@@ -84,52 +84,22 @@ const Navbar = ({ darkMode, toggleDarkMode }: NavbarProps) => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Professional Logo */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            className="flex-shrink-0 relative group"
-          >
-            <a href="#home" className="flex items-center space-x-3">
-              {/* Modern Logo Design */}
-              <div className="flex items-center space-x-3">
-                {/* Monogram/Avatar */}
-                <div className="relative">
-                  <motion.div
-                    whileHover={{ rotate: 5 }}
-                    transition={{ duration: 0.3 }}
-                    className="w-12 h-12 bg-gradient-to-br from-primary via-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow"
-                  >
-                    <span className="text-white font-bold text-lg tracking-tight">
-                      AK
-                    </span>
-                  </motion.div>
-                  {/* Status indicator */}
-                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                  </div>
-                </div>
+          {/* Modern Logo */}
+          <motion.div whileHover={{ scale: 1.02 }} className="flex-shrink-0">
+            <a href="#home" className="flex items-center space-x-2">
+              {/* Compact Monogram */}
+              <motion.div
+                whileHover={{ rotate: 5 }}
+                transition={{ duration: 0.3 }}
+                className="w-9 h-9 bg-gradient-to-br from-primary to-blue-500 rounded-lg flex items-center justify-center shadow-md hover:shadow-lg transition-shadow"
+              >
+                <span className="text-white font-bold text-sm">AK</span>
+              </motion.div>
 
-                {/* Text Content */}
-                <div className="flex flex-col">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                      Ajay Kumawat
-                    </span>
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.5 }}
-                      className="w-1.5 h-1.5 bg-primary rounded-full"
-                    />
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Code2 className="w-3 h-3 text-muted-foreground" />
-                    <span className="text-xs text-muted-foreground font-medium">
-                      Backend Engineer
-                    </span>
-                  </div>
-                </div>
-              </div>
+              {/* Name Only */}
+              <span className="text-xl font-bold text-foreground hover:text-primary transition-colors">
+                Ajay Kumawat
+              </span>
             </a>
           </motion.div>
 
