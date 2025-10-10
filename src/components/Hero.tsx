@@ -55,7 +55,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center pt-32 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
       {/* Ultra Advanced Background System */}
       <div className="absolute inset-0">
@@ -187,19 +187,6 @@ const Hero = () => {
           animate="visible"
           className="text-center"
         >
-          {/* Enhanced Status Badge */}
-          <motion.div
-            variants={itemVariants}
-            className="relative inline-flex items-center space-x-2 bg-gradient-to-r from-emerald-500/10 via-green-500/10 to-teal-500/10 text-emerald-400 px-6 py-3 rounded-full text-sm font-medium mb-8 border border-emerald-500/30 backdrop-blur-md shadow-lg"
-          >
-            <div className="relative">
-              <div className="w-3 h-3 bg-gradient-to-r from-emerald-400 to-green-400 rounded-full animate-pulse" />
-              <div className="absolute inset-0 w-3 h-3 bg-gradient-to-r from-emerald-400 to-green-400 rounded-full animate-ping" />
-            </div>
-            <span className="font-semibold">Available for work</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-green-500/5 rounded-full blur-xl" />
-          </motion.div>
-
           {/* Enhanced Main Title with Advanced Gradient */}
           <motion.h1
             variants={itemVariants}
