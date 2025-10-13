@@ -40,10 +40,10 @@ const ANIMATION_VARIANTS = {
 };
 
 const TECH_STACK = [
-  { name: "Node.js", icon: Server, color: "text-green-500" },
-  { name: "Express", icon: Code2, color: "text-blue-500" },
-  { name: "MongoDB", icon: Database, color: "text-green-600" },
-  { name: "TypeScript", icon: Code2, color: "text-blue-600" },
+  { name: "Node.js", icon: Server, color: "text-primary" },
+  { name: "Express", icon: Code2, color: "text-accent" },
+  { name: "MongoDB", icon: Database, color: "text-primary" },
+  { name: "TypeScript", icon: Code2, color: "text-accent" },
 ] as const;
 
 const SOCIAL_LINKS = [
@@ -75,14 +75,14 @@ const BackgroundEffects = memo(() => (
   <>
     {/* Static gradient backgrounds */}
     <div className="absolute inset-0">
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-black" />
-      <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/20 via-transparent to-purple-900/20" />
-      <div className="absolute inset-0 bg-gradient-to-bl from-cyan-900/10 via-transparent to-indigo-900/15" />
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-muted to-background" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-primary/10" />
+      <div className="absolute inset-0 bg-gradient-to-bl from-accent/10 via-transparent to-secondary/15" />
 
       <div className="absolute inset-0 opacity-40">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-blue-500/20 to-purple-500/20 animate-pulse" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-primary/15 to-accent/20 animate-pulse" />
         <div
-          className="absolute inset-0 bg-gradient-to-l from-cyan-500/10 via-transparent to-emerald-500/10"
+          className="absolute inset-0 bg-gradient-to-l from-primary/10 via-transparent to-secondary/10"
           style={{ animation: "pulse 4s infinite" }}
         />
       </div>
@@ -98,7 +98,7 @@ const BackgroundEffects = memo(() => (
           y: [0, -30, 0],
         }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-primary/30 via-blue-500/20 to-transparent rounded-full blur-3xl"
+        className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-primary/30 via-primary/20 to-transparent rounded-full blur-3xl"
       />
 
       <motion.div
@@ -114,7 +114,7 @@ const BackgroundEffects = memo(() => (
           ease: "easeInOut",
           delay: 1,
         }}
-        className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-purple-500/25 via-pink-500/15 to-transparent rounded-full blur-3xl"
+        className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-primary/25 via-accent/15 to-transparent rounded-full blur-3xl"
       />
 
       {/* Grid pattern overlay */}
@@ -122,8 +122,8 @@ const BackgroundEffects = memo(() => (
         className="absolute inset-0 opacity-[0.03] w-full h-full"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+            linear-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--primary) / 0.1) 1px, transparent 1px)
           `,
           backgroundSize: "50px 50px",
         }}
@@ -176,7 +176,7 @@ const FloatingElements = memo(() => {
             delay,
             ease: "easeInOut",
           }}
-          className="absolute w-2 h-2 bg-gradient-to-r from-primary to-blue-500 rounded-full"
+          className="absolute w-2 h-2 bg-gradient-to-r from-primary to-primary/70 rounded-full"
           style={{ left: `${left}%`, top: `${top}%` }}
         />
       ))}
@@ -237,10 +237,10 @@ const Hero = memo(() => {
             </span>
             <br />
             <span className="relative inline-block">
-              <span className="bg-gradient-to-r from-slate-100 via-white to-slate-200 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/90 bg-clip-text text-transparent">
                 Kumawat
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-100/10 via-white/10 to-slate-200/10 blur-xl -z-10" />
+              <div className="absolute inset-0 bg-gradient-to-r from-foreground/10 via-foreground/10 to-foreground/5 blur-xl -z-10" />
             </span>
           </motion.h1>
 
@@ -272,19 +272,19 @@ const Hero = memo(() => {
           {/* Description */}
           <motion.p
             variants={ANIMATION_VARIANTS.item}
-            className="text-lg sm:text-xl lg:text-2xl max-w-4xl mx-auto text-slate-300 mb-12 leading-relaxed"
+            className="text-lg sm:text-xl lg:text-2xl max-w-4xl mx-auto text-muted-foreground mb-12 leading-relaxed"
           >
             Crafting{" "}
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-bold">
+            <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent font-bold">
               scalable backend systems
             </span>{" "}
             and
-            <span className="bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent font-bold">
+            <span className="bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent font-bold">
               {" "}
               robust APIs
             </span>{" "}
             with
-            <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent font-bold">
+            <span className="bg-gradient-to-r from-secondary to-secondary/80 bg-clip-text text-transparent font-bold">
               {" "}
               1.5+ years
             </span>{" "}
@@ -302,15 +302,15 @@ const Hero = memo(() => {
                 whileHover={{ scale: 1.1, y: -5 }}
                 className="relative group"
               >
-                <div className="flex items-center space-x-3 px-6 py-3 bg-slate-800/50 backdrop-blur-md rounded-2xl border border-slate-700/50 hover:border-cyan-400/50 transition-all duration-300 shadow-lg">
+                <div className="flex items-center space-x-3 px-6 py-3 bg-card/50 backdrop-blur-md rounded-2xl border border-border hover:border-primary/50 transition-all duration-300 shadow-lg">
                   <tech.icon
                     className={`w-6 h-6 ${tech.color} group-hover:scale-110 transition-transform`}
                   />
-                  <span className="text-sm font-semibold text-slate-200 group-hover:text-white transition-colors">
+                  <span className="text-sm font-semibold text-foreground/80 group-hover:text-foreground transition-colors">
                     {tech.name}
                   </span>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-purple-500/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
               </motion.div>
             ))}
           </motion.div>
@@ -326,9 +326,9 @@ const Hero = memo(() => {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95 }}
-              className="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 text-white font-bold rounded-2xl shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300"
+              className="group relative inline-flex items-center px-8 py-4 bg-primary text-primary-foreground font-bold rounded-2xl shadow-2xl hover:shadow-primary/25 transition-all duration-300"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity -z-10" />
+              <div className="absolute inset-0 bg-primary/80 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity -z-10" />
               <FileDown className="mr-3 h-5 w-5 group-hover:animate-bounce" />
               <span>Download Resume</span>
               <ExternalLink className="ml-3 h-4 w-4 opacity-80 group-hover:opacity-100" />
@@ -338,9 +338,9 @@ const Hero = memo(() => {
               href="#projects"
               whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95 }}
-              className="group relative inline-flex items-center px-8 py-4 bg-slate-800/50 backdrop-blur-md border-2 border-slate-600/50 hover:border-cyan-400/60 text-slate-200 hover:text-white font-bold rounded-2xl transition-all duration-300 shadow-lg"
+              className="group relative inline-flex items-center px-8 py-4 bg-card/50 backdrop-blur-md border-2 border-border hover:border-primary/60 text-foreground/80 hover:text-foreground font-bold rounded-2xl transition-all duration-300 shadow-lg"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-800/20 to-slate-700/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
+              <div className="absolute inset-0 bg-gradient-to-r from-muted/20 to-card/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
               <Play className="mr-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               <span>View My Work</span>
             </motion.a>
@@ -359,7 +359,7 @@ const Hero = memo(() => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.15, y: -6 }}
                 whileTap={{ scale: 0.9 }}
-                className={`group relative p-4 bg-slate-800/40 backdrop-blur-md border border-slate-600/30 hover:border-slate-400/50 rounded-2xl shadow-xl hover:shadow-2xl ${social.hoverGlow} transition-all duration-300`}
+                className={`group relative p-4 bg-card/40 backdrop-blur-md border border-border hover:border-primary/50 rounded-2xl shadow-xl hover:shadow-2xl ${social.hoverGlow} transition-all duration-300`}
                 title={social.label}
               >
                 <div
@@ -367,7 +367,7 @@ const Hero = memo(() => {
                 />
                 <social.icon
                   size={24}
-                  className="text-slate-300 group-hover:text-white transition-colors relative z-10"
+                  className="text-muted-foreground group-hover:text-foreground transition-colors relative z-10"
                 />
               </motion.a>
             ))}
@@ -378,7 +378,7 @@ const Hero = memo(() => {
             variants={ANIMATION_VARIANTS.item}
             className="flex flex-col items-center"
           >
-            <p className="text-sm text-slate-400 mb-4 font-medium">
+            <p className="text-sm text-muted-foreground mb-4 font-medium">
               Scroll to explore
             </p>
             <motion.div
@@ -390,10 +390,10 @@ const Hero = memo(() => {
                   ease: "easeInOut",
                 },
               }}
-              className="group relative p-4 bg-slate-800/40 backdrop-blur-md rounded-full border border-slate-600/30 hover:border-cyan-400/50 shadow-xl hover:shadow-cyan-500/20 transition-all duration-300 cursor-pointer"
+              className="group relative p-4 bg-card/40 backdrop-blur-md rounded-full border border-border hover:border-primary/50 shadow-xl hover:shadow-primary/20 transition-all duration-300 cursor-pointer"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-              <ArrowDown className="w-5 h-5 text-slate-300 group-hover:text-cyan-400 transition-colors relative z-10" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+              <ArrowDown className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors relative z-10" />
             </motion.div>
           </motion.div>
         </motion.div>
