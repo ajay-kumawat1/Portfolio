@@ -178,7 +178,7 @@ const About = memo(() => {
                         Backend Developer
                       </span>
                     </div>
-                    <p className="text-muted-foreground text-sm pt-4">
+                    <p className="text-foreground/80 text-sm pt-4">
                       Building scalable and efficient solutions with modern
                       technologies
                     </p>
@@ -261,7 +261,7 @@ const About = memo(() => {
 
               <motion.p
                 variants={VARIANTS.item}
-                className="text-xl text-muted-foreground"
+                className="text-xl text-foreground/90"
               >
                 Passionate developer crafting digital experiences
               </motion.p>
@@ -270,7 +270,7 @@ const About = memo(() => {
             {/* Description */}
             <motion.div
               variants={VARIANTS.item}
-              className="space-y-4 text-lg text-foreground/80 leading-relaxed"
+              className="space-y-4 text-lg text-foreground leading-relaxed"
             >
               <p>
                 I'm a dedicated{" "}
@@ -281,7 +281,7 @@ const About = memo(() => {
                 <span className="text-primary font-semibold">1.5+ years</span>{" "}
                 of hands-on experience in building robust, scalable server-side
                 applications. My passion lies in the{" "}
-                <span className="text-accent font-semibold">
+                <span className="text-blue-400 font-semibold">
                   Node.js ecosystem
                 </span>
                 , where I've architected RESTful APIs, microservices, and
@@ -290,7 +290,7 @@ const About = memo(() => {
 
               <p>
                 I thrive on tackling complex challenges with{" "}
-                <span className="text-secondary font-semibold">
+                <span className="text-emerald-400 font-semibold">
                   clean, maintainable code
                 </span>
                 . From designing efficient database schemas to implementing
