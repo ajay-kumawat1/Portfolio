@@ -281,7 +281,7 @@ const About = memo(() => {
                 <span className="text-primary font-semibold">1.5+ years</span>{" "}
                 of hands-on experience in building robust, scalable server-side
                 applications. My passion lies in the{" "}
-                <span className="text-blue-400 font-semibold">
+                <span className="text-primary font-semibold">
                   Node.js ecosystem
                 </span>
                 , where I've architected RESTful APIs, microservices, and
@@ -290,7 +290,7 @@ const About = memo(() => {
 
               <p>
                 I thrive on tackling complex challenges with{" "}
-                <span className="text-emerald-400 font-semibold">
+                <span className="text-primary font-semibold">
                   clean, maintainable code
                 </span>
                 . From designing efficient database schemas to implementing
