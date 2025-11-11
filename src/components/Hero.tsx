@@ -137,7 +137,6 @@ const FloatingElements = memo(() => {
 
   return (
     <>
-      {/* Floating particles */}
       {particles.map(({ id, left, top, duration, delay }) => (
         <motion.div
           key={id}
