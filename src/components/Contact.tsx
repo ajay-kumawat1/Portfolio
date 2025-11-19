@@ -199,6 +199,62 @@ const FormField = memo(
 
 FormField.displayName = "FormField";
 
+// Submit Button Component
+interface SubmitButtonProps {
+  isSubmitting: boolean;
+}
+
+const SubmitButton = memo(({ isSubmitting }: SubmitButtonProps) => (
+  <motion.button
+    type="submit"
+    disabled={isSubmitting}
+    whileHover={{ scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
+    className="w-full bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
+  >
+    {isSubmitting ? (
+      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-foreground"></div>
+    ) : (
+      <>
+        <Send className="w-4 h-4 mr-2" />
+        Send Message
+      </>
+    )}
+  </motion.button>
+));
+
+SubmitButton.displayName = "SubmitButton";
+
+// Status Message Component
+interface StatusMessageProps {
+  type: "success" | "error";
+}
+
+const StatusMessage = memo(({ type }: StatusMessageProps) => {
+  const isSuccess = type === "success";
+  const bgClass = isSuccess
+    ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800"
+    : "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800";
+  const textClass = isSuccess
+    ? "text-green-800 dark:text-green-200"
+    : "text-red-800 dark:text-red-200";
+  const message = isSuccess
+    ? "Message sent successfully! I'll get back to you soon."
+    : "Something went wrong. Please try again or email me directly.";
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className={`p-4 border rounded-md ${bgClass}`}
+    >
+      <p className={`text-sm ${textClass}`}>{message}</p>
+    </motion.div>
+  );
+});
+
+StatusMessage.displayName = "StatusMessage";
+
 const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
@@ -305,48 +361,11 @@ const Contact = () => {
                   rows={6}
                 />
 
-                <motion.button
-                  type="submit"
-                  disabled={isSubmitting}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
-                >
-                  {isSubmitting ? (
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-foreground"></div>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4 mr-2" />
-                      Send Message
-                    </>
-                  )}
-                </motion.button>
+                <SubmitButton isSubmitting={isSubmitting} />
 
                 {/* Success/Error Messages */}
-                {submitStatus === "success" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-md"
-                  >
-                    <p className="text-green-800 dark:text-green-200 text-sm">
-                      Message sent successfully! I'll get back to you soon.
-                    </p>
-                  </motion.div>
-                )}
-
-                {submitStatus === "error" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md"
-                  >
-                    <p className="text-red-800 dark:text-red-200 text-sm">
-                      Something went wrong. Please try again or email me
-                      directly.
-                    </p>
-                  </motion.div>
-                )}
+                {submitStatus === "success" && <StatusMessage type="success" />}
+                {submitStatus === "error" && <StatusMessage type="error" />}
               </form>
             </motion.div>
           </div>
