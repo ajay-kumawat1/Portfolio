@@ -183,6 +183,113 @@ const FloatingElements = memo(() => {
 
 FloatingElements.displayName = "FloatingElements";
 
+// Tech Stack Component
+const TechStack = memo(() => (
+  <motion.div
+    variants={ANIMATION_VARIANTS.item}
+    className="flex flex-wrap justify-center items-center gap-6 mb-12"
+  >
+    {TECH_STACK.map((tech) => (
+      <motion.div
+        key={tech.name}
+        whileHover={{ scale: 1.05, y: -3 }}
+        className="flex items-center space-x-3 px-6 py-3 bg-card/50 backdrop-blur-md rounded-2xl border border-border hover:border-primary/50 transition-all duration-300 shadow-lg"
+      >
+        <tech.icon className={`w-6 h-6 ${tech.color}`} />
+        <span className="text-sm font-semibold text-foreground/80">
+          {tech.name}
+        </span>
+      </motion.div>
+    ))}
+  </motion.div>
+));
+
+TechStack.displayName = "TechStack";
+
+// CTA Buttons Component
+const CTAButtons = memo(() => (
+  <motion.div
+    variants={ANIMATION_VARIANTS.item}
+    className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
+  >
+    <motion.a
+      href="/resume.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      whileHover={{ scale: 1.03, y: -2 }}
+      whileTap={{ scale: 0.97 }}
+      className="inline-flex items-center px-8 py-4 bg-primary text-primary-foreground font-bold rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-primary/25 transition-all duration-300"
+    >
+      <FileDown className="mr-3 h-5 w-5" />
+      <span>Download Resume</span>
+      <ExternalLink className="ml-3 h-4 w-4" />
+    </motion.a>
+
+    <motion.a
+      href="#projects"
+      whileHover={{ scale: 1.03, y: -2 }}
+      whileTap={{ scale: 0.97 }}
+      className="inline-flex items-center px-8 py-4 bg-card/50 backdrop-blur-md border-2 border-border hover:border-primary/60 text-foreground font-bold rounded-2xl transition-all duration-300 shadow-lg"
+    >
+      <Play className="mr-3 h-5 w-5" />
+      <span>View My Work</span>
+    </motion.a>
+  </motion.div>
+));
+
+CTAButtons.displayName = "CTAButtons";
+
+// Social Links Component
+const SocialLinks = memo(() => (
+  <motion.div
+    variants={ANIMATION_VARIANTS.item}
+    className="flex justify-center items-center space-x-6 mb-12"
+  >
+    {SOCIAL_LINKS.map((social) => (
+      <motion.a
+        key={social.label}
+        href={social.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.1, y: -4 }}
+        whileTap={{ scale: 0.95 }}
+        className="p-4 bg-card/40 backdrop-blur-md border border-border hover:border-primary/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+        aria-label={social.label}
+      >
+        <social.icon
+          size={24}
+          className="text-muted-foreground hover:text-foreground transition-colors"
+        />
+      </motion.a>
+    ))}
+  </motion.div>
+));
+
+SocialLinks.displayName = "SocialLinks";
+
+// Scroll Indicator Component
+const ScrollIndicator = memo(() => (
+  <motion.div
+    variants={ANIMATION_VARIANTS.item}
+    className="flex flex-col items-center"
+  >
+    <p className="text-sm text-muted-foreground mb-4 font-medium">
+      Scroll to explore
+    </p>
+    <motion.a
+      href="#about"
+      animate={{ y: [0, -8, 0] }}
+      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      className="p-4 bg-card/40 backdrop-blur-md rounded-full border border-border hover:border-primary/50 shadow-lg hover:shadow-xl transition-all duration-300"
+      aria-label="Scroll to about section"
+    >
+      <ArrowDown className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
+    </motion.a>
+  </motion.div>
+));
+
+ScrollIndicator.displayName = "ScrollIndicator";
+
 const Hero = memo(() => {
   return (
     <section
@@ -244,95 +351,16 @@ const Hero = memo(() => {
           </motion.p>
 
           {/* Tech Stack - Simplified hover effects */}
-          <motion.div
-            variants={ANIMATION_VARIANTS.item}
-            className="flex flex-wrap justify-center items-center gap-6 mb-12"
-          >
-            {TECH_STACK.map((tech) => (
-              <motion.div
-                key={tech.name}
-                whileHover={{ scale: 1.05, y: -3 }}
-                className="flex items-center space-x-3 px-6 py-3 bg-card/50 backdrop-blur-md rounded-2xl border border-border hover:border-primary/50 transition-all duration-300 shadow-lg"
-              >
-                <tech.icon className={`w-6 h-6 ${tech.color}`} />
-                <span className="text-sm font-semibold text-foreground/80">
-                  {tech.name}
-                </span>
-              </motion.div>
-            ))}
-          </motion.div>
+          <TechStack />
 
           {/* CTA Buttons - Optimized animations */}
-          <motion.div
-            variants={ANIMATION_VARIANTS.item}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
-          >
-            <motion.a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center px-8 py-4 bg-primary text-primary-foreground font-bold rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-primary/25 transition-all duration-300"
-            >
-              <FileDown className="mr-3 h-5 w-5" />
-              <span>Download Resume</span>
-              <ExternalLink className="ml-3 h-4 w-4" />
-            </motion.a>
-
-            <motion.a
-              href="#projects"
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center px-8 py-4 bg-card/50 backdrop-blur-md border-2 border-border hover:border-primary/60 text-foreground font-bold rounded-2xl transition-all duration-300 shadow-lg"
-            >
-              <Play className="mr-3 h-5 w-5" />
-              <span>View My Work</span>
-            </motion.a>
-          </motion.div>
+          <CTAButtons />
 
           {/* Social Links - Simplified */}
-          <motion.div
-            variants={ANIMATION_VARIANTS.item}
-            className="flex justify-center items-center space-x-6 mb-12"
-          >
-            {SOCIAL_LINKS.map((social) => (
-              <motion.a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1, y: -4 }}
-                whileTap={{ scale: 0.95 }}
-                className="p-4 bg-card/40 backdrop-blur-md border border-border hover:border-primary/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
-                aria-label={social.label}
-              >
-                <social.icon
-                  size={24}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                />
-              </motion.a>
-            ))}
-          </motion.div>
+          <SocialLinks />
 
           {/* Scroll Indicator - Simplified */}
-          <motion.div
-            variants={ANIMATION_VARIANTS.item}
-            className="flex flex-col items-center"
-          >
-            <p className="text-sm text-muted-foreground mb-4 font-medium">
-              Scroll to explore
-            </p>
-            <motion.a
-              href="#about"
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="p-4 bg-card/40 backdrop-blur-md rounded-full border border-border hover:border-primary/50 shadow-lg hover:shadow-xl transition-all duration-300"
-              aria-label="Scroll to about section"
-            >
-              <ArrowDown className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
-            </motion.a>
-          </motion.div>
+          <ScrollIndicator />
         </motion.div>
       </div>
     </section>
