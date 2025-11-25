@@ -177,6 +177,69 @@ const ThemeToggle = memo(
 
 ThemeToggle.displayName = "ThemeToggle";
 
+// Download Resume Button Component
+const DownloadResumeButton = memo(() => (
+  <motion.a
+    href="/resume.pdf"
+    download
+    whileHover={{ scale: 1.05, y: -2 }}
+    whileTap={{ scale: 0.95 }}
+    className="hidden md:flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-primary to-purple-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
+  >
+    <Download size={16} />
+    <span>Resume</span>
+  </motion.a>
+));
+
+DownloadResumeButton.displayName = "DownloadResumeButton";
+
+// Mobile Menu Button Component
+interface MobileMenuButtonProps {
+  isMenuOpen: boolean;
+  onClick: () => void;
+  scrolled: boolean;
+}
+
+const MobileMenuButton = memo(
+  ({ isMenuOpen, onClick, scrolled }: MobileMenuButtonProps) => (
+    <motion.button
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      onClick={onClick}
+      className={`lg:hidden p-3 rounded-xl transition-all ${
+        scrolled
+          ? "bg-muted/50 hover:bg-primary/10"
+          : "bg-muted/30 hover:bg-primary/10"
+      } text-muted-foreground hover:text-primary border border-transparent hover:border-primary/20`}
+      aria-label="Toggle menu"
+    >
+      <AnimatePresence mode="wait">
+        {isMenuOpen ? (
+          <motion.div
+            key="close"
+            initial={{ rotate: -90, opacity: 0 }}
+            animate={{ rotate: 0, opacity: 1 }}
+            exit={{ rotate: 90, opacity: 0 }}
+          >
+            <X size={20} />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="menu"
+            initial={{ rotate: 90, opacity: 0 }}
+            animate={{ rotate: 0, opacity: 1 }}
+            exit={{ rotate: -90, opacity: 0 }}
+          >
+            <Menu size={20} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.button>
+  )
+);
+
+MobileMenuButton.displayName = "MobileMenuButton";
+
 // Mobile Menu Component
 const MobileMenu = memo(
   ({
@@ -265,33 +328,45 @@ const Navbar = memo(({ darkMode, toggleDarkMode }: NavbarProps) => {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-      // Update active section based on scroll position
-      const sections = [
-        "home",
-        "about",
-        "skills",
-        "projects",
-        "experience",
-        "contact",
-      ];
-      const current = sections.find((section) => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+    const handleScroll = () => {
+      // Throttle scroll updates for better performance
+      if (timeoutId) return;
+
+      timeoutId = setTimeout(() => {
+        setScrolled(window.scrollY > 20);
+
+        // Update active section based on scroll position
+        const sections = [
+          "home",
+          "about",
+          "skills",
+          "projects",
+          "experience",
+          "contact",
+        ];
+        const current = sections.find((section) => {
+          const element = document.getElementById(section);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            return rect.top <= 100 && rect.bottom >= 100;
+          }
+          return false;
+        });
+        if (current) {
+          setActiveSection(`#${current}`);
         }
-        return false;
-      });
-      if (current) {
-        setActiveSection(`#${current}`);
-      }
+
+        timeoutId = null;
+      }, 100);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, []);
 
   return (
@@ -316,16 +391,7 @@ const Navbar = memo(({ darkMode, toggleDarkMode }: NavbarProps) => {
             <SocialLinks />
 
             {/* Download CV Button */}
-            <motion.a
-              href="/resume.pdf"
-              download
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="hidden md:flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-primary to-purple-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <Download size={16} />
-              <span>Resume</span>
-            </motion.a>
+            <DownloadResumeButton />
 
             <ThemeToggle
               darkMode={darkMode}
@@ -334,39 +400,11 @@ const Navbar = memo(({ darkMode, toggleDarkMode }: NavbarProps) => {
             />
 
             {/* Mobile Menu Button */}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+            <MobileMenuButton
+              isMenuOpen={isMenuOpen}
               onClick={toggleMenu}
-              className={`lg:hidden p-3 rounded-xl transition-all ${
-                scrolled
-                  ? "bg-muted/50 hover:bg-primary/10"
-                  : "bg-muted/30 hover:bg-primary/10"
-              } text-muted-foreground hover:text-primary border border-transparent hover:border-primary/20`}
-              aria-label="Toggle menu"
-            >
-              <AnimatePresence mode="wait">
-                {isMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                  >
-                    <X size={20} />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                  >
-                    <Menu size={20} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
+              scrolled={scrolled}
+            />
           </div>
         </div>
 
