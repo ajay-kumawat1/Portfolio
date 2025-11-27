@@ -148,6 +148,153 @@ const ADDITIONAL_TECH = [
   { name: "SCRUM", gradient: "from-blue-500 to-purple-500" },
 ] as const;
 
+// Background Effects Component
+const BackgroundEffects = memo(() => (
+  <>
+    <motion.div
+      animate={{
+        scale: [1, 1.1, 1],
+        opacity: [0.15, 0.25, 0.15],
+      }}
+      transition={{ duration: 10, repeat: Infinity }}
+      className="absolute top-0 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
+    />
+    <motion.div
+      animate={{
+        scale: [1.1, 1, 1.1],
+        opacity: [0.1, 0.2, 0.1],
+      }}
+      transition={{ duration: 12, repeat: Infinity, delay: 1 }}
+      className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-3xl"
+    />
+  </>
+));
+
+BackgroundEffects.displayName = "BackgroundEffects";
+
+// Skills Header Component
+const SkillsHeader = memo(() => (
+  <motion.div
+    variants={ANIMATION_VARIANTS.item}
+    className="text-center mb-20"
+  >
+    <motion.div
+      variants={ANIMATION_VARIANTS.fadeIn}
+      className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-6 py-3 rounded-full text-sm font-semibold mb-8 border border-primary/20"
+    >
+      <Zap className="w-5 h-5" />
+      <span>Technical Expertise</span>
+    </motion.div>
+
+    <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8">
+      <span className="bg-gradient-to-r from-primary via-purple-500 to-blue-500 bg-clip-text text-transparent">
+        Skills & Technologies
+      </span>
+    </h2>
+
+    <p className="text-foreground/80 max-w-3xl mx-auto text-xl leading-relaxed">
+      My technical expertise spans across modern web technologies, with a focus
+      on{" "}
+      <span className="text-primary font-semibold">backend development</span>,{" "}
+      <span className="text-green-500 font-semibold">
+        database management
+      </span>
+      , and{" "}
+      <span className="text-purple-500 font-semibold">
+        cloud infrastructure
+      </span>
+      .
+    </p>
+  </motion.div>
+));
+
+SkillsHeader.displayName = "SkillsHeader";
+
+// Stat Card Component
+interface StatCardProps {
+  stat: (typeof STATS)[number];
+  index: number;
+}
+
+const StatCard = memo(({ stat, index }: StatCardProps) => {
+  const StatIcon = stat.icon;
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ delay: index * 0.1 }}
+      viewport={{ once: true }}
+      whileHover={{ y: -8, scale: 1.05 }}
+      className="group relative text-center p-8 bg-card/40 backdrop-blur-xl rounded-3xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-2xl overflow-hidden"
+    >
+      {/* Gradient background */}
+      <div
+        className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+      />
+
+      <motion.div
+        whileHover={{ rotate: 360, scale: 1.15 }}
+        transition={{ duration: 0.6 }}
+        className={`relative inline-flex p-4 rounded-2xl bg-gradient-to-br ${stat.gradient} mb-6 shadow-xl`}
+      >
+        <StatIcon className="w-7 h-7 text-white" />
+      </motion.div>
+
+      <motion.h4
+        className={`relative text-4xl font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-3`}
+        animate={{ scale: [1, 1.05, 1] }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          delay: index * 0.3,
+        }}
+      >
+        {stat.value}
+      </motion.h4>
+
+      <p className="relative text-sm text-foreground/70 font-semibold uppercase tracking-wider">
+        {stat.label}
+      </p>
+    </motion.div>
+  );
+});
+
+StatCard.displayName = "StatCard";
+
+// Additional Tech Tag Component
+interface AdditionalTechTagProps {
+  tech: (typeof ADDITIONAL_TECH)[number];
+  index: number;
+}
+
+const AdditionalTechTag = memo(({ tech, index }: AdditionalTechTagProps) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.8 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    transition={{ delay: index * 0.05 }}
+    viewport={{ once: true }}
+    whileHover={{
+      scale: 1.15,
+      rotate: [0, -3, 3, 0],
+      transition: { duration: 0.4 },
+    }}
+    className="group relative"
+  >
+    <div
+      className={`relative px-8 py-4 bg-gradient-to-r ${tech.gradient} text-white rounded-2xl font-bold shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden`}
+    >
+      <span className="relative z-10 text-base">{tech.name}</span>
+      <motion.div
+        className="absolute inset-0 bg-white/0 group-hover:bg-white/20 transition-colors duration-300"
+        whileHover={{ scale: 1.5 }}
+      />
+    </div>
+  </motion.div>
+));
+
+AdditionalTechTag.displayName = "AdditionalTechTag";
+
 // Skill Category Card Component
 const SkillCard = memo(
   ({
@@ -273,23 +420,7 @@ const Skills = memo(() => {
       id="skills"
       className="relative py-32 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-background via-muted/5 to-background"
     >
-      {/* Enhanced Background */}
-      <motion.div
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.15, 0.25, 0.15],
-        }}
-        transition={{ duration: 10, repeat: Infinity }}
-        className="absolute top-0 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
-      />
-      <motion.div
-        animate={{
-          scale: [1.1, 1, 1.1],
-          opacity: [0.1, 0.2, 0.1],
-        }}
-        transition={{ duration: 12, repeat: Infinity, delay: 1 }}
-        className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-3xl"
-      />
+      <BackgroundEffects />
 
       <div className="relative max-w-7xl mx-auto">
         <motion.div
@@ -299,41 +430,7 @@ const Skills = memo(() => {
           variants={ANIMATION_VARIANTS.container}
         >
           {/* Header Section */}
-          <motion.div
-            variants={ANIMATION_VARIANTS.item}
-            className="text-center mb-20"
-          >
-            <motion.div
-              variants={ANIMATION_VARIANTS.fadeIn}
-              className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-6 py-3 rounded-full text-sm font-semibold mb-8 border border-primary/20"
-            >
-              <Zap className="w-5 h-5" />
-              <span>Technical Expertise</span>
-            </motion.div>
-
-            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8">
-              <span className="bg-gradient-to-r from-primary via-purple-500 to-blue-500 bg-clip-text text-transparent">
-                Skills & Technologies
-              </span>
-            </h2>
-
-            <p className="text-foreground/80 max-w-3xl mx-auto text-xl leading-relaxed">
-              My technical expertise spans across modern web technologies, with
-              a focus on{" "}
-              <span className="text-primary font-semibold">
-                backend development
-              </span>
-              ,{" "}
-              <span className="text-green-500 font-semibold">
-                database management
-              </span>
-              , and{" "}
-              <span className="text-purple-500 font-semibold">
-                cloud infrastructure
-              </span>
-              .
-            </p>
-          </motion.div>
+          <SkillsHeader />
 
           {/* Skills Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
@@ -351,49 +448,9 @@ const Skills = memo(() => {
             variants={ANIMATION_VARIANTS.item}
             className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20"
           >
-            {STATS.map((stat, index) => {
-              const StatIcon = stat.icon;
-              return (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -8, scale: 1.05 }}
-                  className="group relative text-center p-8 bg-card/40 backdrop-blur-xl rounded-3xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-2xl overflow-hidden"
-                >
-                  {/* Gradient background */}
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-                  />
-
-                  <motion.div
-                    whileHover={{ rotate: 360, scale: 1.15 }}
-                    transition={{ duration: 0.6 }}
-                    className={`relative inline-flex p-4 rounded-2xl bg-gradient-to-br ${stat.gradient} mb-6 shadow-xl`}
-                  >
-                    <StatIcon className="w-7 h-7 text-white" />
-                  </motion.div>
-
-                  <motion.h4
-                    className={`relative text-4xl font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-3`}
-                    animate={{ scale: [1, 1.05, 1] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: index * 0.3,
-                    }}
-                  >
-                    {stat.value}
-                  </motion.h4>
-
-                  <p className="relative text-sm text-foreground/70 font-semibold uppercase tracking-wider">
-                    {stat.label}
-                  </p>
-                </motion.div>
-              );
-            })}
+            {STATS.map((stat, index) => (
+              <StatCard key={stat.label} stat={stat} index={index} />
+            ))}
           </motion.div>
 
           {/* Additional Technologies */}
@@ -407,29 +464,7 @@ const Skills = memo(() => {
 
             <div className="flex flex-wrap justify-center gap-4">
               {ADDITIONAL_TECH.map((tech, index) => (
-                <motion.div
-                  key={tech.name}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.05 }}
-                  viewport={{ once: true }}
-                  whileHover={{
-                    scale: 1.15,
-                    rotate: [0, -3, 3, 0],
-                    transition: { duration: 0.4 },
-                  }}
-                  className="group relative"
-                >
-                  <div
-                    className={`relative px-8 py-4 bg-gradient-to-r ${tech.gradient} text-white rounded-2xl font-bold shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden`}
-                  >
-                    <span className="relative z-10 text-base">{tech.name}</span>
-                    <motion.div
-                      className="absolute inset-0 bg-white/0 group-hover:bg-white/20 transition-colors duration-300"
-                      whileHover={{ scale: 1.5 }}
-                    />
-                  </div>
-                </motion.div>
+                <AdditionalTechTag key={tech.name} tech={tech} index={index} />
               ))}
             </div>
           </motion.div>
