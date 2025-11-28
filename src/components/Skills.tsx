@@ -174,10 +174,7 @@ BackgroundEffects.displayName = "BackgroundEffects";
 
 // Skills Header Component
 const SkillsHeader = memo(() => (
-  <motion.div
-    variants={ANIMATION_VARIANTS.item}
-    className="text-center mb-20"
-  >
+  <motion.div variants={ANIMATION_VARIANTS.item} className="text-center mb-20">
     <motion.div
       variants={ANIMATION_VARIANTS.fadeIn}
       className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-6 py-3 rounded-full text-sm font-semibold mb-8 border border-primary/20"
@@ -194,12 +191,10 @@ const SkillsHeader = memo(() => (
 
     <p className="text-foreground/80 max-w-3xl mx-auto text-xl leading-relaxed">
       My technical expertise spans across modern web technologies, with a focus
-      on{" "}
-      <span className="text-primary font-semibold">backend development</span>,{" "}
-      <span className="text-green-500 font-semibold">
-        database management
-      </span>
-      , and{" "}
+      on <span className="text-primary font-semibold">backend development</span>
+      ,{" "}
+      <span className="text-green-500 font-semibold">database management</span>,
+      and{" "}
       <span className="text-purple-500 font-semibold">
         cloud infrastructure
       </span>
@@ -218,7 +213,7 @@ interface StatCardProps {
 
 const StatCard = memo(({ stat, index }: StatCardProps) => {
   const StatIcon = stat.icon;
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}

@@ -57,6 +57,10 @@ body {
   background: hsl(var(--background));
   font-family: 'Inter', system-ui, sans-serif;
   font-feature-settings: "rlig" 1, "calt" 1;
+  /* Performance optimizations */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* Smooth scrolling */
@@ -64,7 +68,14 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+/* Performance: Reduce layout thrashing */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom scrollbar - optimized */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -82,7 +93,7 @@ html {
   background: hsl(var(--primary));
 }
 
-/* Ensure animations work */
+/* Performance: GPU acceleration for animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -96,11 +107,28 @@ html {
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(20px) translateZ(0);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
   }
+}
+
+/* Performance: Optimize image rendering */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Performance: Will-change for frequently animated elements */
+.animate-spin,
+[class*="motion-"] {
+  will-change: transform;
+}
+
+/* Performance: Contain layout for sections */
+section {
+  contain: layout style paint;
 }

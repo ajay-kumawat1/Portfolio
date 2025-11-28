@@ -9,5 +9,23 @@ export default defineConfig({
     outDir: "dist",
     assetsDir: "assets",
     sourcemap: false,
+    // Optimize chunk splitting
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom"],
+          motion: ["framer-motion"],
+          icons: ["lucide-react"],
+        },
+      },
+    },
+    // Increase chunk size warning limit
+    chunkSizeWarningLimit: 1000,
+    // Use esbuild for faster minification
+    minify: "esbuild",
+  },
+  // Optimize dependencies
+  optimizeDeps: {
+    include: ["react", "react-dom", "framer-motion", "lucide-react"],
   },
 });
