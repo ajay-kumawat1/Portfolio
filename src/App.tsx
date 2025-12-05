@@ -1,90 +1,100 @@
 import { useState, useEffect, lazy, Suspense, useCallback, memo } from "react";
-import { motion } from "framer-motion";
+import { motion, LazyMotion, domAnimation } from "framer-motion";
 import { Navbar } from "./components";
 
-// Lazy load components for code splitting
-const Hero = lazy(() => import("./components/Hero"));
-const About = lazy(() => import("./components/About"));
-const Skills = lazy(() => import("./components/Skills"));
-const Projects = lazy(() => import("./components/Projects"));
-const Experience = lazy(() => import("./components/Experience"));
-const Contact = lazy(() => import("./components/Contact"));
-const Footer = lazy(() => import("./components/Footer"));
+// Lazy load components for code splitting with prefetch hints
+const Hero = lazy(() => import(/* webpackPreload: true */ "./components/Hero"));
+const About = lazy(
+  () => import(/* webpackPrefetch: true */ "./components/About")
+);
+const Skills = lazy(
+  () => import(/* webpackPrefetch: true */ "./components/Skills")
+);
+const Projects = lazy(
+  () => import(/* webpackPrefetch: true */ "./components/Projects")
+);
+const Experience = lazy(
+  () => import(/* webpackPrefetch: true */ "./components/Experience")
+);
+const Contact = lazy(
+  () => import(/* webpackPrefetch: true */ "./components/Contact")
+);
+const Footer = lazy(
+  () => import(/* webpackPrefetch: true */ "./components/Footer")
+);
 
-// Loading fallback component
+// Minimal loading fallback - reduces layout shift
 const SectionLoader = memo(() => (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+  <div className="min-h-[50vh] flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
   </div>
 ));
 
 SectionLoader.displayName = "SectionLoader";
 
+// Main content wrapper to reduce re-renders
+const MainContent = memo(() => (
+  <Suspense fallback={<SectionLoader />}>
+    <Hero />
+    <About />
+    <Skills />
+    <Projects />
+    <Experience />
+    <Contact />
+  </Suspense>
+));
+
+MainContent.displayName = "MainContent";
+
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    // Initialize from localStorage synchronously to prevent flash
+    if (typeof window !== "undefined") {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) return savedTheme === "dark";
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+    return false;
+  });
 
   useEffect(() => {
-    // Check for saved theme preference or default to 'light' mode
-    const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setDarkMode(true);
+    // Apply theme on mount
+    if (darkMode) {
       document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
     }
-  }, []);
+  }, [darkMode]);
 
   const toggleDarkMode = useCallback(() => {
     setDarkMode((prev) => {
       const newMode = !prev;
-      if (newMode) {
-        document.documentElement.classList.add("dark");
-        localStorage.setItem("theme", "dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-        localStorage.setItem("theme", "light");
-      }
+      document.documentElement.classList.toggle("dark", newMode);
+      localStorage.setItem("theme", newMode ? "dark" : "light");
       return newMode;
     });
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+    <LazyMotion features={domAnimation} strict>
+      <div className="min-h-screen bg-background text-foreground">
+        <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 
-      <main>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Suspense fallback={<SectionLoader />}>
-            <Hero />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <About />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Skills />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Projects />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Experience />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Contact />
-          </Suspense>
-        </motion.div>
-      </main>
+        <main>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <MainContent />
+          </motion.div>
+        </main>
 
-      <Suspense fallback={<SectionLoader />}>
-        <Footer />
-      </Suspense>
-    </div>
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
+      </div>
+    </LazyMotion>
   );
 }
 
