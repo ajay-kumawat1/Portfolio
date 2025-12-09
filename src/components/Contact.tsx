@@ -2,23 +2,23 @@ import { useState, useRef, useCallback, memo } from "react";
 import { motion, useInView } from "framer-motion";
 import { Mail, Phone, MapPin, Send, Linkedin, Github } from "lucide-react";
 
-// Animation variants
+// Animation variants - optimized for fast rendering
 const ANIMATION_VARIANTS = {
   container: {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
+        staggerChildren: 0.15,
       },
     },
   },
   item: {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 15 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6 },
+      transition: { duration: 0.3 },
     },
   },
 } as const;

@@ -117,7 +117,13 @@ body {
 
 /* Performance: Contain layout for sections */
 section {
-  contain: layout style;
+  contain: layout style paint;
+}
+
+/* Content visibility for below-fold sections - massive render optimization */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
 }
 
 /* Optimize images */
@@ -126,6 +132,13 @@ video {
   max-width: 100%;
   height: auto;
   display: block;
+  content-visibility: auto;
+}
+
+/* Lazy render offscreen content */
+[data-lazy-render] {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 300px;
 }
 
 /* Focus visible for accessibility */

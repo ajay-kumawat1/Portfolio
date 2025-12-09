@@ -3,20 +3,20 @@ import { useInView } from "framer-motion";
 import { useRef, memo } from "react";
 import { Calendar, MapPin, ExternalLink } from "lucide-react";
 
-// Animation variants
+// Animation variants - optimized for fast rendering
 const VARIANTS = {
   container: {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
+        staggerChildren: 0.15,
       },
     },
   },
   item: {
-    hidden: { opacity: 0, x: -30 },
-    visible: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, x: -15 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
   },
 } as const;
 

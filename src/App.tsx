@@ -1,5 +1,13 @@
-import { useState, useEffect, lazy, Suspense, useCallback, memo } from "react";
-import { motion, LazyMotion, domAnimation } from "framer-motion";
+import {
+  useState,
+  useEffect,
+  lazy,
+  Suspense,
+  useCallback,
+  memo,
+  startTransition,
+} from "react";
+import { LazyMotion, domAnimation } from "framer-motion";
 import { Navbar } from "./components";
 
 // Lazy load components for code splitting with prefetch hints
@@ -67,11 +75,13 @@ function App() {
   }, [darkMode]);
 
   const toggleDarkMode = useCallback(() => {
-    setDarkMode((prev) => {
-      const newMode = !prev;
-      document.documentElement.classList.toggle("dark", newMode);
-      localStorage.setItem("theme", newMode ? "dark" : "light");
-      return newMode;
+    startTransition(() => {
+      setDarkMode((prev) => {
+        const newMode = !prev;
+        document.documentElement.classList.toggle("dark", newMode);
+        localStorage.setItem("theme", newMode ? "dark" : "light");
+        return newMode;
+      });
     });
   }, []);
 
@@ -81,13 +91,7 @@ function App() {
         <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 
         <main>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            <MainContent />
-          </motion.div>
+          <MainContent />
         </main>
 
         <Suspense fallback={null}>

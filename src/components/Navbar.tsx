@@ -66,9 +66,9 @@ const DesktopNavItems = memo(({ activeSection }: { activeSection: string }) => (
         <motion.a
           key={item.href}
           href={item.href}
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
+          transition={{ delay: index * 0.05 }}
           whileHover={{ y: -2 }}
           className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all group ${
             activeSection === item.href
@@ -257,7 +257,7 @@ const MobileMenu = memo(
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2 }}
           className="lg:hidden overflow-hidden"
         >
           <div className="px-2 pt-4 pb-6 space-y-2 border-t border-border/50 mt-2">
@@ -265,9 +265,9 @@ const MobileMenu = memo(
               <motion.a
                 key={item.href}
                 href={item.href}
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.05 }}
                 onClick={onClose}
                 className={`flex items-center space-x-3 px-4 py-3 rounded-xl text-base font-medium transition-all ${
                   activeSection === item.href
@@ -373,8 +373,8 @@ const Navbar = memo(({ darkMode, toggleDarkMode }: NavbarProps) => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         scrolled
           ? "bg-background/95 backdrop-blur-xl shadow-lg border-b border-border/50"
           : "bg-background/80 backdrop-blur-md border-b border-border/30"

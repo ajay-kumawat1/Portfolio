@@ -20,21 +20,21 @@ const ANIMATION_VARIANTS = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.2, delayChildren: 0.3 },
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
     },
   },
   item: {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" as const },
+      transition: { duration: 0.4, ease: "easeOut" as const },
     },
   },
   floating: {
     animate: {
-      y: [0, -20, 0],
-      transition: { duration: 3, repeat: Infinity, ease: "easeInOut" as const },
+      y: [0, -15, 0],
+      transition: { duration: 4, repeat: Infinity, ease: "easeInOut" as const },
     },
   },
 };
@@ -70,39 +70,25 @@ const SOCIAL_LINKS = [
   },
 ] as const;
 
-// Memoized background component for better performance
+// Memoized background component - CSS-only for better performance
 const BackgroundEffects = memo(() => (
   <>
-    {/* Static gradient backgrounds */}
+    {/* Static gradient backgrounds - no JS animations */}
     <div className="absolute inset-0">
       <div className="absolute inset-0 bg-gradient-to-br from-background via-muted to-background" />
       <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-primary/10" />
       <div className="absolute inset-0 bg-gradient-to-bl from-accent/10 via-transparent to-secondary/15" />
     </div>
 
-    {/* Animated background elements - Reduced complexity */}
+    {/* CSS animated background elements - GPU accelerated */}
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <motion.div
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-primary/30 via-primary/20 to-transparent rounded-full blur-3xl"
+      <div
+        className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-primary/30 via-primary/20 to-transparent rounded-full blur-3xl animate-pulse"
+        style={{ animationDuration: "8s" }}
       />
-
-      <motion.div
-        animate={{
-          scale: [1.1, 1, 1.1],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1,
-        }}
-        className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-primary/25 via-accent/15 to-transparent rounded-full blur-3xl"
+      <div
+        className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-primary/25 via-accent/15 to-transparent rounded-full blur-3xl animate-pulse"
+        style={{ animationDuration: "10s", animationDelay: "1s" }}
       />
     </div>
   </>
@@ -110,27 +96,27 @@ const BackgroundEffects = memo(() => (
 
 BackgroundEffects.displayName = "BackgroundEffects";
 
-// Memoized floating elements - Reduced particle count for better performance
+// Memoized floating elements - Minimal for fast rendering
 const FloatingElements = memo(() => {
   const particles = useMemo(
     () =>
-      Array.from({ length: 5 }, (_, i) => ({
+      Array.from({ length: 3 }, (_, i) => ({
         id: i,
-        left: 20 + i * 15,
-        top: 65 + (i % 3) * 8,
-        duration: 6 + (i % 3) * 2,
-        delay: i * 0.8,
+        left: 25 + i * 25,
+        top: 65 + (i % 2) * 10,
+        duration: 8 + i * 2,
+        delay: i * 1,
       })),
     []
   );
 
   const sparkles = useMemo(
     () =>
-      Array.from({ length: 3 }, (_, i) => ({
+      Array.from({ length: 2 }, (_, i) => ({
         id: i,
-        top: 20 + i * 25,
-        left: 15 + i * 30,
-        delay: i * 1.2,
+        top: 25 + i * 35,
+        left: 20 + i * 40,
+        delay: i * 1.5,
       })),
     []
   );
