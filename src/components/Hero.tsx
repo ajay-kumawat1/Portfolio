@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { memo, useMemo } from "react";
+import { memo } from "react";
 import {
   FileDown,
   Mail,
@@ -9,7 +9,6 @@ import {
   Code2,
   Server,
   Database,
-  Sparkles,
   Play,
   ExternalLink,
 } from "lucide-react";
@@ -96,76 +95,39 @@ const BackgroundEffects = memo(() => (
 
 BackgroundEffects.displayName = "BackgroundEffects";
 
-// Memoized floating elements - Minimal for fast rendering
-const FloatingElements = memo(() => {
-  const particles = useMemo(
-    () =>
-      Array.from({ length: 3 }, (_, i) => ({
-        id: i,
-        left: 25 + i * 25,
-        top: 65 + (i % 2) * 10,
-        duration: 8 + i * 2,
-        delay: i * 1,
-      })),
-    []
-  );
-
-  const sparkles = useMemo(
-    () =>
-      Array.from({ length: 2 }, (_, i) => ({
-        id: i,
-        top: 25 + i * 35,
-        left: 20 + i * 40,
-        delay: i * 1.5,
-      })),
-    []
-  );
-
-  return (
-    <>
-      {particles.map(({ id, left, top, duration, delay }) => (
-        <motion.div
-          key={id}
-          animate={{
-            y: [0, -100, 0],
-            opacity: [0, 1, 0],
-            scale: [0, 1, 0],
-          }}
-          transition={{
-            duration,
-            repeat: Infinity,
-            delay,
-            ease: "easeInOut",
-          }}
-          className="absolute w-2 h-2 bg-gradient-to-r from-primary to-primary/70 rounded-full"
-          style={{ left: `${left}%`, top: `${top}%` }}
-        />
-      ))}
-
-      {/* Sparkle effects */}
-      <div className="absolute inset-0 pointer-events-none">
-        {sparkles.map(({ id, top, left, delay }) => (
-          <motion.div
-            key={id}
-            animate={{
-              scale: [0, 1, 0],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              delay,
-            }}
-            className="absolute"
-            style={{ top: `${top}%`, left: `${left}%` }}
-          >
-            <Sparkles className="w-6 h-6 text-primary/30" />
-          </motion.div>
-        ))}
-      </div>
-    </>
-  );
-});
+// Memoized floating elements - Pure CSS for zero JS blocking
+const FloatingElements = memo(() => (
+  <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    {/* CSS-only floating particles - no JS blocking */}
+    <div
+      className="absolute w-2 h-2 bg-primary/50 rounded-full animate-bounce"
+      style={{
+        left: "25%",
+        top: "65%",
+        animationDuration: "3s",
+        animationDelay: "0s",
+      }}
+    />
+    <div
+      className="absolute w-2 h-2 bg-primary/40 rounded-full animate-bounce"
+      style={{
+        left: "50%",
+        top: "70%",
+        animationDuration: "4s",
+        animationDelay: "1s",
+      }}
+    />
+    <div
+      className="absolute w-2 h-2 bg-primary/30 rounded-full animate-bounce"
+      style={{
+        left: "75%",
+        top: "60%",
+        animationDuration: "5s",
+        animationDelay: "2s",
+      }}
+    />
+  </div>
+));
 
 FloatingElements.displayName = "FloatingElements";
 

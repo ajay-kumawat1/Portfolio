@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback, memo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   Sun,
   Moon,
@@ -38,65 +37,38 @@ const SOCIAL_LINKS = [
   },
 ] as const;
 
-// Logo Component
+// Logo Component - CSS-only hover for fast rendering
 const Logo = memo(() => (
-  <motion.div whileHover={{ scale: 1.02 }} className="flex-shrink-0">
-    <a href="#home" className="flex items-center space-x-2">
-      <motion.div
-        whileHover={{ rotate: 5 }}
-        transition={{ duration: 0.3 }}
-        className="w-9 h-9 bg-gradient-to-br from-primary to-blue-500 rounded-lg flex items-center justify-center shadow-md hover:shadow-lg transition-shadow"
-      >
+  <div className="flex-shrink-0">
+    <a href="#home" className="flex items-center space-x-2 group">
+      <div className="w-9 h-9 bg-gradient-to-br from-primary to-blue-500 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-200">
         <span className="text-white font-bold text-sm">AK</span>
-      </motion.div>
-      <span className="text-xl font-bold text-foreground hover:text-primary transition-colors">
+      </div>
+      <span className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200">
         Ajay Kumawat
       </span>
     </a>
-  </motion.div>
+  </div>
 ));
 
 Logo.displayName = "Logo";
 
-// Desktop Nav Items Component
+// Desktop Nav Items Component - Simplified for fast rendering
 const DesktopNavItems = memo(({ activeSection }: { activeSection: string }) => (
   <div className="hidden lg:block">
     <div className="flex items-center space-x-2">
-      {NAV_ITEMS.map((item, index) => (
-        <motion.a
+      {NAV_ITEMS.map((item) => (
+        <a
           key={item.href}
           href={item.href}
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.05 }}
-          whileHover={{ y: -2 }}
-          className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all group ${
+          className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 hover:-translate-y-0.5 ${
             activeSection === item.href
-              ? "text-primary"
-              : "text-muted-foreground hover:text-foreground"
+              ? "text-primary bg-primary/10 border border-primary/20"
+              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
           }`}
         >
-          {activeSection === item.href && (
-            <motion.div
-              layoutId="activeSection"
-              className="absolute inset-0 bg-gradient-to-r from-primary/10 via-purple-500/10 to-blue-500/10 rounded-xl border border-primary/20"
-              transition={{
-                type: "spring",
-                bounce: 0.2,
-                duration: 0.6,
-              }}
-            />
-          )}
-          <span className="relative z-10 flex items-center space-x-2">
-            <span>{item.label}</span>
-          </span>
-          <motion.div
-            className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-purple-500 to-blue-500"
-            initial={{ scaleX: 0 }}
-            whileHover={{ scaleX: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-        </motion.a>
+          <span>{item.label}</span>
+        </a>
       ))}
     </div>
   </div>
@@ -104,29 +76,27 @@ const DesktopNavItems = memo(({ activeSection }: { activeSection: string }) => (
 
 DesktopNavItems.displayName = "DesktopNavItems";
 
-// Social Links Component
+// Social Links Component - CSS-only hover
 const SocialLinks = memo(() => (
   <div className="hidden lg:flex items-center space-x-2">
     {SOCIAL_LINKS.map((social) => (
-      <motion.a
+      <a
         key={social.label}
         href={social.href}
         target="_blank"
         rel="noopener noreferrer"
-        whileHover={{ scale: 1.1, y: -2 }}
-        whileTap={{ scale: 0.95 }}
-        className="p-2 rounded-lg bg-muted/30 hover:bg-primary/10 text-muted-foreground hover:text-primary transition-colors border border-transparent hover:border-primary/20"
+        className="p-2 rounded-lg bg-muted/30 hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-200 border border-transparent hover:border-primary/20 hover:scale-110 hover:-translate-y-0.5 active:scale-95"
         aria-label={social.label}
       >
         <social.icon size={18} />
-      </motion.a>
+      </a>
     ))}
   </div>
 ));
 
 SocialLinks.displayName = "SocialLinks";
 
-// Theme Toggle Component
+// Theme Toggle Component - CSS-only for instant response
 const ThemeToggle = memo(
   ({
     darkMode,
@@ -137,58 +107,32 @@ const ThemeToggle = memo(
     toggleDarkMode: () => void;
     scrolled: boolean;
   }) => (
-    <motion.button
-      whileHover={{ scale: 1.1, rotate: 180 }}
-      whileTap={{ scale: 0.9 }}
+    <button
       onClick={toggleDarkMode}
-      className={`relative p-3 rounded-xl transition-all ${
+      className={`relative p-3 rounded-xl transition-all duration-200 hover:scale-110 active:scale-95 ${
         scrolled
           ? "bg-muted/50 hover:bg-primary/10"
           : "bg-muted/30 hover:bg-primary/10"
       } text-muted-foreground hover:text-primary border border-transparent hover:border-primary/20`}
       aria-label="Toggle theme"
     >
-      <AnimatePresence mode="wait">
-        {darkMode ? (
-          <motion.div
-            key="sun"
-            initial={{ rotate: -90, opacity: 0 }}
-            animate={{ rotate: 0, opacity: 1 }}
-            exit={{ rotate: 90, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Sun size={20} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="moon"
-            initial={{ rotate: 90, opacity: 0 }}
-            animate={{ rotate: 0, opacity: 1 }}
-            exit={{ rotate: -90, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Moon size={20} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.button>
+      {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+    </button>
   )
 );
 
 ThemeToggle.displayName = "ThemeToggle";
 
-// Download Resume Button Component
+// Download Resume Button Component - CSS-only hover
 const DownloadResumeButton = memo(() => (
-  <motion.a
+  <a
     href="/resume.pdf"
     download
-    whileHover={{ scale: 1.05, y: -2 }}
-    whileTap={{ scale: 0.95 }}
-    className="hidden md:flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-primary to-purple-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
+    className="hidden md:flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-primary to-purple-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 active:scale-95"
   >
     <Download size={16} />
     <span>Resume</span>
-  </motion.a>
+  </a>
 ));
 
 DownloadResumeButton.displayName = "DownloadResumeButton";
@@ -202,45 +146,23 @@ interface MobileMenuButtonProps {
 
 const MobileMenuButton = memo(
   ({ isMenuOpen, onClick, scrolled }: MobileMenuButtonProps) => (
-    <motion.button
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
+    <button
       onClick={onClick}
-      className={`lg:hidden p-3 rounded-xl transition-all ${
+      className={`lg:hidden p-3 rounded-xl transition-all duration-200 hover:scale-110 active:scale-95 ${
         scrolled
           ? "bg-muted/50 hover:bg-primary/10"
           : "bg-muted/30 hover:bg-primary/10"
       } text-muted-foreground hover:text-primary border border-transparent hover:border-primary/20`}
       aria-label="Toggle menu"
     >
-      <AnimatePresence mode="wait">
-        {isMenuOpen ? (
-          <motion.div
-            key="close"
-            initial={{ rotate: -90, opacity: 0 }}
-            animate={{ rotate: 0, opacity: 1 }}
-            exit={{ rotate: 90, opacity: 0 }}
-          >
-            <X size={20} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="menu"
-            initial={{ rotate: 90, opacity: 0 }}
-            animate={{ rotate: 0, opacity: 1 }}
-            exit={{ rotate: -90, opacity: 0 }}
-          >
-            <Menu size={20} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.button>
+      {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+    </button>
   )
 );
 
 MobileMenuButton.displayName = "MobileMenuButton";
 
-// Mobile Menu Component
+// Mobile Menu Component - CSS-only transitions
 const MobileMenu = memo(
   ({
     isMenuOpen,
@@ -251,64 +173,53 @@ const MobileMenu = memo(
     activeSection: string;
     onClose: () => void;
   }) => (
-    <AnimatePresence>
-      {isMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.2 }}
-          className="lg:hidden overflow-hidden"
-        >
-          <div className="px-2 pt-4 pb-6 space-y-2 border-t border-border/50 mt-2">
-            {NAV_ITEMS.map((item, index) => (
-              <motion.a
-                key={item.href}
-                href={item.href}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.05 }}
-                onClick={onClose}
-                className={`flex items-center space-x-3 px-4 py-3 rounded-xl text-base font-medium transition-all ${
-                  activeSection === item.href
-                    ? "bg-gradient-to-r from-primary/10 to-purple-500/10 text-primary border border-primary/20"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
-                }`}
-              >
-                <item.icon size={20} />
-                <span>{item.label}</span>
-              </motion.a>
-            ))}
+    <div
+      className={`lg:hidden overflow-hidden transition-all duration-200 ${
+        isMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+      }`}
+    >
+      <div className="px-2 pt-4 pb-6 space-y-2 border-t border-border/50 mt-2">
+        {NAV_ITEMS.map((item) => (
+          <a
+            key={item.href}
+            href={item.href}
+            onClick={onClose}
+            className={`flex items-center space-x-3 px-4 py-3 rounded-xl text-base font-medium transition-all duration-200 ${
+              activeSection === item.href
+                ? "bg-gradient-to-r from-primary/10 to-purple-500/10 text-primary border border-primary/20"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
+            }`}
+          >
+            <item.icon size={20} />
+            <span>{item.label}</span>
+          </a>
+        ))}
 
-            <div className="flex items-center space-x-3 px-4 pt-4 border-t border-border/50 mt-4">
-              {SOCIAL_LINKS.map((social) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileTap={{ scale: 0.95 }}
-                  className="flex-1 flex items-center justify-center space-x-2 px-4 py-3 rounded-xl bg-muted/30 hover:bg-primary/10 text-muted-foreground hover:text-primary transition-colors border border-border/30 hover:border-primary/20"
-                >
-                  <social.icon size={18} />
-                  <span className="text-sm">{social.label}</span>
-                </motion.a>
-              ))}
-            </div>
-
-            <motion.a
-              href="/resume.pdf"
-              download
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-primary to-purple-500 text-white rounded-xl font-semibold shadow-lg mx-4"
+        <div className="flex items-center space-x-3 px-4 pt-4 border-t border-border/50 mt-4">
+          {SOCIAL_LINKS.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center space-x-2 px-4 py-3 rounded-xl bg-muted/30 hover:bg-primary/10 text-muted-foreground hover:text-primary transition-colors duration-200 border border-border/30 hover:border-primary/20 active:scale-95"
             >
-              <Download size={18} />
-              <span>Download Resume</span>
-            </motion.a>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+              <social.icon size={18} />
+              <span className="text-sm">{social.label}</span>
+            </a>
+          ))}
+        </div>
+
+        <a
+          href="/resume.pdf"
+          download
+          className="flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-primary to-purple-500 text-white rounded-xl font-semibold shadow-lg mx-4 active:scale-95 transition-transform duration-200"
+        >
+          <Download size={18} />
+          <span>Download Resume</span>
+        </a>
+      </div>
+    </div>
   )
 );
 
@@ -370,11 +281,8 @@ const Navbar = memo(({ darkMode, toggleDarkMode }: NavbarProps) => {
   }, []);
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 animate-slide-down ${
         scrolled
           ? "bg-background/95 backdrop-blur-xl shadow-lg border-b border-border/50"
           : "bg-background/80 backdrop-blur-md border-b border-border/30"
@@ -416,14 +324,11 @@ const Navbar = memo(({ darkMode, toggleDarkMode }: NavbarProps) => {
       </div>
 
       {/* Progress Bar */}
-      <motion.div
-        className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary via-purple-500 to-blue-500"
-        style={{
-          width: scrolled ? "100%" : "0%",
-          transition: "width 0.3s ease-out",
-        }}
+      <div
+        className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary via-purple-500 to-blue-500 transition-all duration-300"
+        style={{ width: scrolled ? "100%" : "0%" }}
       />
-    </motion.nav>
+    </nav>
   );
 });
 
