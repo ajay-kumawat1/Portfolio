@@ -86,7 +86,7 @@ function App() {
   }, []);
 
   return (
-    <LazyMotion features={domAnimation} strict>
+    <LazyMotion features={domAnimation}>
       <div className="min-h-screen bg-background text-foreground">
         <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 
